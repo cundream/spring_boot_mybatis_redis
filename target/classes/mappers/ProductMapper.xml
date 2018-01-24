@@ -7,8 +7,17 @@
     <!-- 开启基于redis的二级缓存 -->
     <cache type="com.lc.learning.util.RedisCache"/>
 
+    <resultMap id="allProduct" type="Product">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="price" property="price" />
+    </resultMap>
     <select id="select" resultType="Product">
         SELECT * FROM products WHERE id = #{id} LIMIT 1
+    </select>
+
+    <select id="findAll" resultMap="allProduct">
+        SELECT * FROM products
     </select>
 
     <update id="update" parameterType="Product" flushCache="true">

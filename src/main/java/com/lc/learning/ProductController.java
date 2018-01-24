@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -19,6 +21,16 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product getProductInfo(@PathVariable("id")Long productId) {
         return productMapper.select(productId);
+    }
+
+    @RequestMapping("/all")
+
+    private List<Product> findAllProductInfo(){
+        List<Product> list = productMapper.findAll();
+        if(!list.isEmpty()){
+            list.stream().forEach(System.out::println);
+        }
+        return list;
     }
 
     @PutMapping("/{id}")
